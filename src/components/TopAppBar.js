@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";
 
 const TopAppBar = () => {
@@ -18,6 +19,7 @@ const TopAppBar = () => {
         {isSearching ? (
           <Toolbar>
             <IconButton
+              color="inherit"
               onClick={() => {
                 setIsSearching(false);
               }}
@@ -27,10 +29,13 @@ const TopAppBar = () => {
             <Input
               autoFocus
               placeholder="Search a game"
-              sx={{ input: { color: "white" } }}
+              sx={{ input: { color: "white" }, flexGrow: 1 }}
               startAdornment={<SearchIcon sx={{ mr: 1, color: "white" }} />}
               disableUnderline
             />
+            <IconButton color="inherit" edge="start">
+              <FilterListIcon />
+            </IconButton>
           </Toolbar>
         ) : (
           <Toolbar>
