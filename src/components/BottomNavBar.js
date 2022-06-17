@@ -2,11 +2,14 @@ import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarIcon from "@mui/icons-material/CalendarMonth";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const BottomNavBar = () => {
+const BottomNavBar = ({ setIsSearching }) => {
   const [value, setValue] = useState(0);
+  useEffect(() => {
+    setIsSearching(false);
+  }, [value]);
   return (
     <Paper
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
