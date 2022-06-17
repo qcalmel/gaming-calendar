@@ -9,13 +9,11 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { useState } from "react";
 
-const TopAppBar = () => {
-  const [isSearching, setIsSearching] = useState(false);
+const TopAppBar = ({ isSearching, setIsSearching }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed" sx={{ top: 0 }}>
         {isSearching ? (
           <Toolbar>
             <IconButton
