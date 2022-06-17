@@ -1,11 +1,11 @@
 import "./App.css";
-import BottomNavBar from "./components/BottomNavBar";
-import TopAppBar from "./components/TopAppBar";
+import BottomNavBar from "./layouts/BottomNavBar";
+import TopAppBar from "./layouts/TopAppBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Calendar from "./components/Calendar";
-import Home from "./components/Home";
+import Calendar from "./pages/Calendar";
+import Home from "./pages/Home";
 import { useState } from "react";
-import Search from "./components/Search";
+import Search from "./pages/Search";
 import { Box } from "@mui/material";
 
 function App() {
