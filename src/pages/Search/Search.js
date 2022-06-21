@@ -1,7 +1,8 @@
-import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import {
   Avatar,
+  Box,
+  CircularProgress,
   Divider,
   List,
   ListItem,
@@ -10,32 +11,55 @@ import {
   ListItemText,
 } from "@mui/material";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import { getGamesFromSearch } from "../../api/game";
+import { useQuery } from "react-query";
 
-const Search = () => {
-  const [data, setData] = useState([]);
+const Search = ({ searchQuery }) => {
+  const { isLoading, isError, error, data, refetch, remove } = useQuery(
+    "data",
+    () => getGamesFromSearch(searchQuery),
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      const results = await axios.get("https://dummyjson.com/products");
-      setData(results.data);
-    };
-    fetchData();
-  }, []);
+    const fetchTimeout = setTimeout(() => {
+      remove();
+      refetch();
+    }, 500);
 
-  console.log(data);
+    return () => clearTimeout(fetchTimeout);
+  }, [searchQuery]);
+
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <CircularProgress />;
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
+  const games = data?.data || [];
   return (
     <List>
-      {data.products?.map((product) => {
+      {games.map((game) => {
         return (
           <Fragment>
             <ListItem>
               <ListItemAvatar>
-                <Avatar src={product.thumbnail} />
+                <Avatar src={game?.cover?.url} />
               </ListItemAvatar>
-              <ListItemText
-                primary={product.title}
-                secondary={product.price + "$"}
-              />
+              <ListItemText primary={game?.name} />
               <ListItemIcon>
                 <StarOutlineIcon />
               </ListItemIcon>
