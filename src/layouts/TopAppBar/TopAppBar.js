@@ -10,7 +10,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-const TopAppBar = ({ isSearching, setIsSearching }) => {
+const TopAppBar = ({
+  isSearching,
+  setIsSearching,
+  searchQuery,
+  handleSearch,
+}) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ top: 0 }}>
@@ -30,6 +35,8 @@ const TopAppBar = ({ isSearching, setIsSearching }) => {
               sx={{ input: { color: "white" }, flexGrow: 1 }}
               startAdornment={<SearchIcon sx={{ mr: 1, color: "white" }} />}
               disableUnderline
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
             />
             <IconButton color="inherit" edge="start">
               <FilterListIcon />
